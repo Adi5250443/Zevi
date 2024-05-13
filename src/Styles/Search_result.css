@@ -1,0 +1,157 @@
+.Products-page {
+    width: 80%;
+    height: auto;
+    background-color: whitesmoke;
+    display: flex;
+}
+
+.left-bar {
+    width: 20%; 
+    min-width: 140px;
+    height: auto;
+    background-color: white;
+    border-right: 1px solid black;
+    padding: 10px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; 
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px;
+    width: 80%; 
+}
+
+.products img {
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    border-radius: 5px; 
+    margin: 5px;
+}
+.products img:hover {
+    cursor: pointer;
+}
+.filters {
+    margin-left: 10px;
+    
+}
+/* Style for the logo container */
+.logo1 {
+    background-color: rgb(158, 214, 236);
+    width: 70px; 
+    height: 30px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 10px; 
+    padding: 5px; 
+    margin: 0 auto;
+}
+
+
+.logo1 img {
+    width: 80%;
+    height: auto;
+    display: block; 
+    border-radius: 5px; 
+}
+
+
+.product-name,
+.brand-name,
+.rating
+.price {
+    position: relative; 
+    text-align: center;
+    padding: 5px;
+    background-color: rgba(252, 252, 252, 0.8); 
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 1px; 
+}
+.ratingprice{
+display: flex;
+justify-content: space-around;
+}
+
+@media (max-width: 768px) {
+    .Products-page {
+        width: 80%;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    }
+
+    .left-bar {
+        width: 20%; 
+        border-right: none; 
+        margin-bottom: 20px; 
+    }
+
+    .products {
+        width: 100%; 
+    }
+}
+
+@media (max-width: 480px) {
+    .products {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    .left-bar {
+        width: 10vh; 
+        border-right: none; 
+        margin-bottom: 20px; 
+    }
+    .products img{
+        width: 80%;
+    }
+}
+
+/* Container for each product item */
+.image-item {
+    position: relative;
+    overflow: hidden; /* Hide overflowing content */
+}
+
+/* Wrapper for product image and info */
+.product-wrapper {
+    position: relative; 
+}
+
+/* Overlay container for the button */
+.overlay {
+    position: absolute; 
+    top: 80%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth opacity transition */
+}
+
+/* Style for the "View Product" button */
+.view-product-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth opacity transition */
+}
+
+/* Show overlay and button on hover */
+.product-wrapper:hover .overlay {
+    opacity: 1; /* Show overlay on hover */
+}
+
+.product-wrapper:hover .view-product-btn {
+    opacity: 1; /* Show button on hover */
+}
