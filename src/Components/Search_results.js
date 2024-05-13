@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import '../Styles/Search_result.css';
 import logo from '../Styles/zevi_logo.png'
 import { faker } from '@faker-js/faker';
@@ -53,7 +52,7 @@ function Search_results() {
        
         if (selectedPriceRanges.length > 0) {
             filteredProducts = filteredProducts.filter(product => {
-                const productPrice = parseInt(product.price.slice(1)); // Convert price string to number
+                const productPrice = parseInt(product.price.slice(1));
                 return selectedPriceRanges.some(range => {
                     const [minPrice, maxPrice] = range.split('-').map(Number);
                     return productPrice >= minPrice && productPrice <= maxPrice;
