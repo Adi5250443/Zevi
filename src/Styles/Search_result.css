@@ -1,5 +1,5 @@
 .Products-page {
-    width: 80%;
+
     height: auto;
     background-color: whitesmoke;
     display: flex;
@@ -16,7 +16,7 @@
 
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
     gap: 12px; 
     border-radius: 10px;
     overflow: hidden;
@@ -25,7 +25,7 @@
 }
 
 .products img {
-    width: 100%; 
+    max-width: 350px;
     height: auto; 
     display: block; 
     border-radius: 5px; 

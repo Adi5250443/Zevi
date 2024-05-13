@@ -199,7 +199,7 @@ function Search_results() {
             </div>
         ))
     ) : (
-        <div className="no-results">No matching products</div>
+        <div className="no-results">Filter Data</div>
     )}
 </div>
         </div>
