@@ -1,55 +1,55 @@
 import React, { useState, useEffect } from "react";
 import '../Styles/Search_result.css';
 import logo from '../Styles/zevi_logo.png'
+import staricon from '../Styles/star_icon.png';
+import wishlist1 from '../Styles/heart_empty.png';
+import wishlist2 from '../Styles/heart_filled.png';
 import { faker } from '@faker-js/faker';
 
-function Search_results() {
-    const [imageData, setImageData] = useState([]);
-    const [filteredData, setFilteredData] = useState([]);
+function Search_results(props) {
+    const data = props.data;
+    console.log(data);
+
+    const [imageData, setImageData] = useState(data);
+    const [filteredData, setFilteredData] = useState(data);
     const [selectedBrands, setSelectedBrands] = useState([]);
     const [selectedPriceRanges, setSelectedPriceRanges] = useState([]);
     const [selectedRatings, setSelectedRatings] = useState([]);
+    const [wishlistStatus, setWishlistStatus] = useState({});
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
-    const fetchData = () => {
-        const data=generateProducts(15);
-        setImageData(data);
-        setFilteredData(data); 
-    };
 
-    const generateProducts = (count) => {
-        const products = [];
-        for (let i = 0; i < count; i++) {
-          const isTrending = faker.datatype.boolean(); 
-          const rating = faker.number.int({ min: 1, max: 5, precision: 0.1 });
-          const product = {
-            id:faker.string.uuid(),
-            company:faker.company.name(),
-            productName:faker.commerce.product('fashion'),
-            price:faker.commerce.price({ min: 100, max: 500, dec: 0, symbol: '$' }),
-            avatar:faker.image.urlLoremFlickr({ category: 'fashion' }),
-            status: isTrending ? 'trending' : 'not trending',
-            rating: parseFloat(rating.toFixed(1))
-          };
-          products.push(product);
-        }
-        return products;
-      };
+
+    // const generateProducts = (count) => {
+    //     const products = [];
+    //     for (let i = 0; i < count; i++) {
+    //       const isTrending = faker.datatype.boolean(); 
+    //       const rating = faker.number.int({ min: 1, max: 5, precision: 0.1 });
+    //       const product = {
+    //         id:faker.string.uuid(),
+    //         company:faker.company.name(),
+    //         productName:faker.commerce.product('fashion'),
+    //         price:faker.commerce.price({ min: 100, max: 500, dec: 0, symbol: '$' }),
+    //         avatar:faker.image.urlLoremFlickr({ category: 'fashion' }),
+    //         status: isTrending ? 'trending' : 'not trending',
+    //         rating: parseFloat(rating.toFixed(1))
+    //       };
+    //       products.push(product);
+    //     }
+    //     return products;
+    //   };
 
     const applyFilters = () => {
         let filteredProducts = imageData;
 
-      
+
         if (selectedBrands.length > 0) {
             filteredProducts = filteredProducts.filter(product =>
                 selectedBrands.includes(product.company.toLowerCase())
             );
         }
 
-       
+
         if (selectedPriceRanges.length > 0) {
             filteredProducts = filteredProducts.filter(product => {
                 const productPrice = parseInt(product.price.slice(1));
@@ -60,7 +60,7 @@ function Search_results() {
             });
         }
 
-      
+
         if (selectedRatings.length > 0) {
             filteredProducts = filteredProducts.filter(product =>
                 selectedRatings.includes(product.rating)
@@ -95,17 +95,26 @@ function Search_results() {
         setSelectedRatings(updatedRatings);
     };
 
+    const toggleWishlist = (productId) => {
+        setWishlistStatus((prevStatus) => {
+            const isWishlisted = prevStatus[productId];
+
+            return {
+                ...prevStatus,
+                [productId]: !isWishlisted // Toggle wishlisted status
+            };
+        });
+    };
+
     return (
 
         <div className="Products-page">
-       
-            <div className="left-bar">
-            <div className="logo1">
-        <img src={logo} alt="not found"/>
-        </div>
-                <h3 style={{ textAlign:'center' }}>Filter</h3>
 
-              
+            <div className="left-bar">
+
+                <h3 style={{ textAlign: 'center', fontFamily: "serif" }}>Filters</h3>
+
+
                 <div className="filters">
                     <h4>Brand:</h4>
                     {imageData.map(item => (
@@ -121,7 +130,7 @@ function Search_results() {
                     ))}
                 </div>
 
-           
+
                 <div className="filters">
                     <h4>Price Range:</h4>
                     <div>
@@ -172,36 +181,57 @@ function Search_results() {
                                 checked={selectedRatings.includes(rating)}
                                 onChange={() => handleRatingCheckboxChange(rating)}
                             />
-                            <label htmlFor={`rating-${rating}`}>{rating} stars</label>
+                            <label htmlFor={`rating-${rating}`}>
+                                {[...Array(rating)].map((_, index) => (
+                                    <img key={index} src={staricon} alt="Star" />
+                                ))}
+                            </label>
                         </div>
                     ))}
+
                 </div>
             </div>
 
             <div className="products">
-    {filteredData.length > 0 ? (
-        filteredData.map((item, index) => (
-            <div key={index} className="image-item">
-                <div className="product-wrapper">
-                    <img src={item.avatar} alt="Product" />
-                    <div className="product-info">
-                        <div className="product-name"><b>{item.productName}</b></div>
-                        <div className="brand-name">{item.company}</div>
-                        <div className="ratingprice">
-                            <div className="price">Price: {item.price}</div>
-                            <div className="rating">Rating: {item.rating}*</div>
+                {filteredData.length > 0 ? (
+                    filteredData.map((item, index) => (
+                        <div key={index} className="image-item">
+                            <div className="product-wrapper">
+                                <div className="product_display">
+                                    <img src={item.avatar} alt="not found" />
+                                    {wishlistStatus[item.id] ? (
+                                        <div className="wishlist-icon" onClick={() => toggleWishlist(item.id)}>
+                                            <img src={wishlist2} alt="Wishlisted" />
+                                        </div>
+                                    ) : (
+                                        <div className="wishlist-icon" onClick={() => toggleWishlist(item.id)}>
+                                            <img src={wishlist1} alt="Add to wishlist" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className="product-info">
+                                    <div className="product-name"><b>{item.productName}</b></div>
+                                    <div className="brand-name">{item.company}</div>
+                                    <div className="price">Price: {item.price}</div>
+
+
+                                    <div className="rating">
+                                        {[...Array(item.rating)].map((_, index) => (
+                                            <img key={index} src={staricon} alt="Star" />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="overlay">
+                                    <button className="view-product-btn">View Product</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="overlay">
-                        <button className="view-product-btn">View Product</button>
-                    </div>
-                </div>
+                    ))
+                ) : (
+                    <div className="no-results">Filter Data</div>
+                )}
             </div>
-        ))
-    ) : (
-        <div className="no-results">Filter Data</div>
-    )}
-</div>
         </div>
     );
 }

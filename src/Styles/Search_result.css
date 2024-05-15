@@ -3,13 +3,14 @@
     height: auto;
     background-color: whitesmoke;
     display: flex;
+    margin-top: 5rem;
 }
 
 .left-bar {
     width: 20%; 
     min-width: 140px;
     height: auto;
-    background-color: white;
+    background-color: whitesmoke;
     border-right: 1px solid black;
     padding: 10px;
 }
@@ -22,6 +23,7 @@
     overflow: hidden;
     margin: 20px;
     width: 80%; 
+    position: relative;
 }
 
 .products img {
@@ -34,35 +36,35 @@
 .products img:hover {
     cursor: pointer;
 }
+
+
+.product_display {
+  position: relative;
+}
+
+.wishlist-icon {
+  position: absolute;
+  top: 5px; 
+  right: 5px;
+  z-index: 1; 
+}
 .filters {
     margin-left: 10px;
     
 }
-/* Style for the logo container */
-.logo1 {
-    background-color: rgb(158, 214, 236);
-    width: 70px; 
-    height: 30px;
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    border-radius: 10px; 
-    padding: 5px; 
-    margin: 0 auto;
+
+
+.rating{
+    display: flex;
 }
-
-
-.logo1 img {
-    width: 80%;
-    height: auto;
-    display: block; 
-    border-radius: 5px; 
+.rating img,
+.filters img{
+    width: 25px;
+    height: 25px;
 }
-
 
 .product-name,
 .brand-name,
-.rating
 .price {
     position: relative; 
     text-align: center;
@@ -97,7 +99,7 @@ justify-content: space-around;
 
 @media (max-width: 480px) {
     .products {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
     .left-bar {
         width: 10vh; 
@@ -106,10 +108,13 @@ justify-content: space-around;
     }
     .products img{
         width: 80%;
+    }.rating img,
+    .filters img{
+        width: 12px;
+        height: 12px;
     }
 }
 
-/* Container for each product item */
 .image-item {
     position: relative;
     overflow: hidden; /* Hide overflowing content */
@@ -131,8 +136,8 @@ justify-content: space-around;
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease; /* Smooth opacity transition */
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
 }
 
 /* Style for the "View Product" button */
@@ -143,15 +148,14 @@ justify-content: space-around;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease; /* Smooth opacity transition */
+    opacity: 0; 
+    transition: opacity 0.3s ease;
 }
 
-/* Show overlay and button on hover */
 .product-wrapper:hover .overlay {
-    opacity: 1; /* Show overlay on hover */
+    opacity: 1; 
 }
 
 .product-wrapper:hover .view-product-btn {
-    opacity: 1; /* Show button on hover */
+    opacity: 1; 
 }

@@ -8,10 +8,26 @@
     opacity: 90%;
 }
 
+.Searching{
+    background-color: white;
+}
+
+.logo{
+    background: #c5ced1;
+    display: inline-block;
+    margin: 5px;
+    width: fit-content;
+}
+.logo img{
+    height: 40px;
+    width: auto;
+    margin: 2px;
+}
+
 
 .Search-bar {
     position: absolute;
-    top: 20%; /* Adjust top position as needed */
+    top: 5%; /* Adjust top position as needed */
     left: 50%;
     transform: translateX(-50%);
     width: 90%; 
@@ -23,6 +39,7 @@
     padding: 0 10px;
     border-radius: 20px;
     z-index: 1; /* Ensure Search-bar is above other content */
+
 }
 
 .Search-bar input[type="text"] {
@@ -32,6 +49,7 @@
     outline: none;
     padding: 0 10px;
     border-radius: 20px;
+    border: 1px solid black;
 }
 
 .Search-bar button {
@@ -68,14 +86,14 @@
 
 .image-box {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); 
     gap: 10px;
     border-radius: 10px;
     overflow: hidden; 
 }
 
 .image-box img {
-    width: 80%; 
+    width: 100%; 
     height: auto; 
     display: block; 
     border-radius: 5px;

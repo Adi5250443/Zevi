@@ -4,12 +4,15 @@ import axios from 'axios';
 import '../Styles/Home.css';
 import logo from '../Styles/zevi_logo.png'
 import { faker } from '@faker-js/faker';
+import Search_results from "./Search_results";
 
 function Home() {
     const [inputValue, setInputValue] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    const [issearchButtonClicked,setIsSearchButtonClicked]=useState(false);
     const [trending, setTrending] = useState([]);
     const [filteredTrending, setFilteredTrending] = useState([]);
+    const [apiData,setApiData]=useState();
     const Navigate = useNavigate(); // Access the history object for navigation
 
     useEffect(() => {
@@ -37,6 +40,7 @@ function Home() {
 
     const fetchTrendingData = () => {
         const data=generateProducts(15);
+        setApiData(data);
         const trendingItems = data.filter(item => item.status === "trending");
                 setTrending(trendingItems);
                 setFilteredTrending(trendingItems); // Initialize filtered list with all trending items
@@ -60,11 +64,12 @@ function Home() {
 
     const handleSearchButton = () => {
         setIsSearching(false);
-        Navigate('/search-results');
+        setIsSearchButtonClicked(true);
+        // Navigate('/search-results');
     };
 
     return (
-        <div className="Header">
+        <div className={` ${issearchButtonClicked? 'searching' : 'Header'}`}>
         <div className="logo">
             <img src={logo} alt="not found"/>
         </div>
@@ -93,6 +98,9 @@ function Home() {
                         ) : null}
                     </div>
                 </div>
+            )}
+            {issearchButtonClicked &&(
+             <Search_results data={apiData}/>
             )}
         </div>
     );
